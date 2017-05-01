@@ -3,7 +3,7 @@ defmodule ExpostgresHelpers do
 
   require Logger
 
-  def get_rows(%Ecto.Repo{}=repo, query) do
+  def get_rows(repo, query) do
     try do
       {:ok, repo.all(query)}
     rescue
@@ -13,7 +13,7 @@ defmodule ExpostgresHelpers do
     end
   end
 
-  def get_all_nil(%Ecto.Repo{}=repo, model, key) do
+  def get_all_nil(repo, model, key) do
     query = from r in model,
       where: is_nil(field(r, ^key))
 
@@ -21,7 +21,7 @@ defmodule ExpostgresHelpers do
       do: {:ok, rows}
   end
 
-  def get_by(%Ecto.Repo{}=repo, model, key, value, associations \\ []) do
+  def get_by(repo, model, key, value, associations \\ []) do
     query = from r in model,
       where: field(r, ^key) == ^value,
       preload: ^associations
@@ -37,7 +37,7 @@ defmodule ExpostgresHelpers do
     end
   end
 
-  def get_by_id(%Ecto.Repo{}=repo, model, id, associations \\ []),
+  def get_by_id(repo, model, id, associations \\ []),
     do: get_by(repo, model, :id, id, associations)
 
   def get_all(repo, model),
@@ -48,12 +48,12 @@ defmodule ExpostgresHelpers do
     :ok
   end
 
-  def delete_query(%Ecto.Repo{}=repo, query) do
+  def delete_query(repo, query) do
     query |> repo.delete_all()
     :ok
   end
 
-  def delete_all(%Ecto.Repo{}=repo, model) do
+  def delete_all(repo, model) do
     {_numDeleted, _returned} = repo.delete_all(from model)
     :ok
   end
