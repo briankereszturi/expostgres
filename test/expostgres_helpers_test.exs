@@ -1,6 +1,6 @@
-defmodule ExpostgresTest do
+defmodule ExpostgresHelpersTest do
   use ExUnit.Case
-  doctest Expostgres
+  doctest ExpostgresHelpers
 
   test "the truth" do
     assert 1 + 1 == 2

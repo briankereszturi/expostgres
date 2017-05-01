@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :expostgres, key: :value
+#     config :expostgres_helpers, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:expostgres, :key)
+#     Application.get_env(:expostgres_helpers, :key)
 #
 # Or configure a 3rd-party app:
 #
