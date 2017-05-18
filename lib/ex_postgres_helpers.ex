@@ -1,4 +1,4 @@
-defmodule ExpostgresHelpers do
+defmodule ExPostgresHelpers do
   import Ecto.Query
 
   require Logger
