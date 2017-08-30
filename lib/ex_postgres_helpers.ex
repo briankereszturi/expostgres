@@ -13,12 +13,21 @@ defmodule ExPostgresHelpers do
     end
   end
 
+  def get_first(repo, query) do
+    with {:ok, rows} <- get_rows(repo, query),
+         [first | _] <- rows do
+      {:ok, first}
+    else
+      [] -> {:error, :not_found}
+      e -> e
+    end
+  end
+
   def get_all_nil(repo, model, key) do
     query = from r in model,
       where: is_nil(field(r, ^key))
 
-    with {:ok, rows} <- get_rows(repo, query),
-      do: {:ok, rows}
+    get_rows(repo, query)
   end
 
   def get_by(repo, model, key, value, associations \\ []) do
@@ -26,15 +35,7 @@ defmodule ExPostgresHelpers do
       where: field(r, ^key) == ^value,
       preload: ^associations
 
-    with {:ok, rows} <- get_rows(repo, query),
-         [first | _] <- rows do
-      {:ok, first}
-    else
-      [] -> {:error, :not_found}
-      e ->
-        Logger.error "Query failure: #{inspect e}"
-        e
-    end
+    get_first(repo, query)
   end
 
   def get_by_id(repo, model, id, associations \\ []),
