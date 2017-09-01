@@ -17,7 +17,8 @@ defmodule ExPostgresHelpers.Mixfile do
   defp deps do
     [
       {:ecto, "~> 2.1.3"},
-      {:postgrex, "~> 0.13.2"}
+      {:postgrex, "~> 0.13.2"},
+      {:temp, "~> 0.4"}
     ]
   end
 end
